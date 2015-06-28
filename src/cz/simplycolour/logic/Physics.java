@@ -1,7 +1,7 @@
 package cz.simplycolour.logic;
 
-import cz.simplycolour.entities.Entity;
 import cz.simplycolour.cuboids.Cuboid;
+import cz.simplycolour.entities.Entity;
 
 import java.util.List;
 
@@ -29,18 +29,21 @@ public class Physics {
         if (maxTop < entity.getY()) { // handles when falling through models, too :P
             if (entity.getY() - maxTop < entity.getMomentum().getY() * (-1)) { // make sure we do not jump through the block on edge cases
                 entity.setY(maxTop);
-                entity.getMomentum().setY(0);
+                entity.setMomentumY(0);
             }
             if (entity.getMomentum().getY() == 0) // stationary, start falling down
-                entity.getMomentum().setY(-1.2f);
-            else if (entity.getMomentum().getY() > 0) // slow down jumping
-                entity.getMomentum().setY(entity.getMomentum().getY() * 0.8f);
+                entity.setMomentumY(-1.2f);
+            else if (entity.getY() + entity.getMomentum().getY() < maxTop) {
+                entity.setY(maxTop);
+                entity.setMomentumY(0);
+            } else if (entity.getMomentum().getY() > 0) // slow down jumping
+                entity.setMomentumY(entity.getMomentum().getY() * 1.2f);
             else /*(entity.getMomentum().getY() < maxGravitySpeed)*/ // increase speed of falling
-                entity.getMomentum().setY((float) Math.min(entity.getMomentum().getY() * 1.2f, maxGravitySpeed)); // cap it
+                entity.setMomentumY((float) Math.min(entity.getMomentum().getY() * 1.2f, maxGravitySpeed)); // cap it
         }
 
 
         if (maxTop == entity.getY())
-            entity.getMomentum().setY(0);
+            entity.setMomentumY(0);
     }
 }

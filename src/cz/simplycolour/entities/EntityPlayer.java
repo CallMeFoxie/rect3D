@@ -12,6 +12,13 @@ public class EntityPlayer extends Entity {
     }
 
     @Override
+    public void update() {
+        super.update();
+        momentum.setX(momentum.getX() * 0.8f);
+        momentum.setY(momentum.getY() * 0.8f);
+    }
+
+    @Override
     public void render() {
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, 0);

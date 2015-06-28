@@ -5,6 +5,7 @@ import cz.simplycolour.data.DataLoader;
 import cz.simplycolour.data.Level;
 import cz.simplycolour.entities.Entity;
 import cz.simplycolour.entities.EntityPlayer;
+import cz.simplycolour.logic.Input;
 import cz.simplycolour.logic.Physics;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -40,7 +41,7 @@ public class Game {
             e.printStackTrace();
         }
 
-        player = new EntityPlayer(10, 60, Plane.FRONT);
+        player = new EntityPlayer(80, 60, Plane.FRONT);
         Registry.init();
 
         try {
@@ -82,6 +83,8 @@ public class Game {
                     cuboid.render();
 
             player.render();
+
+            Input.processInput();
 
             Display.update();
             Display.sync(60);

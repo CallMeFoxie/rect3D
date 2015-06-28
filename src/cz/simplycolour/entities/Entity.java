@@ -15,7 +15,7 @@ public abstract class Entity {
         entityTypes = new HashMap<>();
     }
 
-    protected int x, y;
+    protected float x, y;
     protected int width, height;
     protected Vector2f momentum;
     protected Plane    plane;
@@ -65,11 +65,11 @@ public abstract class Entity {
         return plane;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -79,6 +79,20 @@ public abstract class Entity {
 
     public Vector2f getMomentum() {
         return momentum;
+    }
+
+    public void setMomentumX(float newX) {
+        if (Math.abs(newX) < 0.1f)
+            momentum.setX(0);
+        else
+            momentum.setX(newX);
+    }
+
+    public void setMomentumY(float newY) {
+        if (Math.abs(newY) < 0.1f)
+            momentum.setY(0);
+        else
+            momentum.setY(newY);
     }
 
     public boolean hasGravity() {
